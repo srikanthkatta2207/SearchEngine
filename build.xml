@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="SearchEngine" default="main" basedir=".">
+  <description>
+    Lcme search engine used to optimise search results based on web page scores.
+  </description>
+  <property name="projectName" value="SearchEngine" />
+  <property name="src.dir" location="src" />
+  <property name="build.dir" location="target" />
+  <property name="dist.dir" location="${build.dir}/dist" />
+  <target name="main" depends="clean,compile, dist" />
+
+  <target name="init">
+    <mkdir dir="${build.dir}" />
+  </target>
+
+  <target name="clean" description="Flush staging directory">
+    <delete dir="${build.dir}" />
+  </target>
+
+  <target name="compile" depends="init" description="compile the source ">
+    <javac includeantruntime="false" srcdir="${src.dir}" destdir="${build.dir}">
+    </javac>
+  </target>
+
+  <target name="dist" depends="compile" description="package, output to JAR">
+    <mkdir dir="${dist.dir}" />
+    <jar jarfile="${dist.dir}/${projectName}.jar" basedir="${build.dir}">
+      <manifest>
+        <attribute name="Main-Class" value="lcme.Main" />
+      </manifest>
+    </jar>
+  </target>
+</project>
